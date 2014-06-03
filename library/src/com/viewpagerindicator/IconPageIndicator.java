@@ -23,6 +23,7 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 
@@ -131,6 +132,20 @@ public class IconPageIndicator extends HorizontalScrollView implements PageIndic
         for (int i = 0; i < count; i++) {
             ImageView view = new ImageView(getContext(), null, R.attr.vpiIconPageIndicatorStyle);
             view.setImageResource(iconAdapter.getIconResId(i));
+            final float scale = getContext().getResources().getDisplayMetrics().density;
+            int pixels = (int) (70 * scale + 0.5f);
+            view.setLayoutParams(new ViewGroup.LayoutParams(pixels, pixels));
+            view.setTag(""+i);
+            view.setOnClickListener(new OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+
+                    int viewPosition = Integer.parseInt(v.getTag().toString());
+
+                    mViewPager.setCurrentItem(viewPosition);
+                }
+            });
             mIconsLayout.addView(view);
         }
         if (mSelectedIndex > count) {
