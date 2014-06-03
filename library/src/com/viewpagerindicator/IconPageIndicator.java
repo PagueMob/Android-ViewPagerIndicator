@@ -134,14 +134,14 @@ public class IconPageIndicator extends HorizontalScrollView implements PageIndic
             view.setImageResource(iconAdapter.getIconResId(i));
             final float scale = getContext().getResources().getDisplayMetrics().density;
             int pixels = (int) (70 * scale + 0.5f);
+            final int position = i;
             view.setLayoutParams(new ViewGroup.LayoutParams(pixels, pixels));
-            view.setTag(""+i);
             view.setOnClickListener(new OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
 
-                    int viewPosition = Integer.parseInt(v.getTag().toString());
+                    int viewPosition = position;
 
                     mViewPager.setCurrentItem(viewPosition);
                 }
